@@ -1,9 +1,49 @@
 import React from 'react'
 import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
+
+import { useState } from 'react'
 
 export default function SignUpThree() {
-  return (
+
+  const navigate = useNavigate();
+  
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/signUp`,
+        {
+          username: name,  // Change 'name' to 'username' to match the backend
+          email,
+          password,
+        }
+      );
+  
+      const data = await res.data;
+  
+      if (data.success) {
+        setEmail("");
+        setName("");
+        setPassword("");
+  
+        toast.success(data.message);
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong");
+      console.error(error);  // Log the actual error for debugging
+    }
+  };
+  
+  return ( 
     <section>
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
@@ -34,7 +74,7 @@ export default function SignUpThree() {
               Sign In
             </Link>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form onSubmit={handleSubmit}  className="mt-8">
             <div className="space-y-5">
               <div>
                 <label htmlFor="name" className="text-base font-medium text-gray-900">
@@ -47,6 +87,8 @@ export default function SignUpThree() {
                     type="text"
                     placeholder="Full Name"
                     id="name"
+                    value={name}
+                    onChange={(e)=> setName(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -61,6 +103,8 @@ export default function SignUpThree() {
                     type="email"
                     placeholder="Email"
                     id="email"
+                    value={email}
+                    onChange={(e)=> setEmail(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -77,12 +121,14 @@ export default function SignUpThree() {
                     type="password"
                     placeholder="Password"
                     id="password"
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
                   ></input>
                 </div>
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Create Account <ArrowRight className="ml-2" size={16} />
