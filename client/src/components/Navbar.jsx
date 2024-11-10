@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 
 const menuItems = [
   {
@@ -20,14 +21,22 @@ const menuItems = [
 ];
 
 export function Navbar() {
+  
+  const { pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+ 
+
   return (
-    <div className="relative w-full bg-white">
+    <div className={`relative ${
+
+      pathname ==="/seller/profile" || pathname ==="/buyer/profile" ? "hidden" : "fixed"
+
+    }  w-full bg-white`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex items-center space-x-2">
           <span>
