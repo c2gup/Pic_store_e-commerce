@@ -2,6 +2,9 @@ import React from 'react';
 import { Route, Routes , useLocation} from 'react-router-dom';
 import LogIn from '../pages/Login'; // Assuming LogIn is a default export
 import Signup from '../pages/Signup'; // Assuming Signup is a default export
+import SellerDashboard from '../pages/SellerDashboard';
+import BuyerDashboard  from '../pages/BuyerDashboard';
+
 
  // Assuming Home is a default export
  import gsap from "gsap";
@@ -29,8 +32,8 @@ export default function GsapPage() {
         <Route path="/" element={<Homesection />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/seller/profile" element={<SellerDashboard />} />
-        <Route path="/buyer/profile" element={<BuyerDashboard />} /> */}
+        <Route path="/seller/profile" element={<SellerDashboard />} />
+        <Route path="/buyer/profile" element={<BuyerDashboard />} />
       </Routes>
     </div>
   );

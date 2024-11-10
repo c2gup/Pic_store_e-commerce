@@ -1,41 +1,48 @@
-import React from 'react'
-import { ArrowRight } from 'lucide-react'
-import { Link ,useNavigate } from 'react-router-dom'
+import React from "react";
+import { ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useState } from "react";
+import { login } from "../../store/slices/authSlice";
+import { useDispatch } from "react-redux";
 
-export  default function SignInThree() {
+export default function SignInThree() {
+  const dipatch = useDispatch();
   const navigate = useNavigate();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/v1/login`,
         {
-            // Change 'name' to 'username' to match the backend
+          // Change 'name' to 'username' to match the backend
           email,
           password,
         }
       );
-  
+
       const data = await res.data;
-  
+
       if (data.success) {
         setEmail("");
-      
+ 
         setPassword("");
-  
+
+        const data = await res.data;
         toast.success(data.message);
-        navigate("/home");
+        // dipatch karna hai login -> jo bhi data aa raha hai sab push karna hai state me
+        dipatch(login(data));
+        navigate(`/${data.role}/profile`);
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
-      console.error(error);  // Log the actual error for debugging
+      console.error(error); // Log the actual error for debugging
     }
   };
   return (
@@ -60,7 +67,7 @@ export  default function SignInThree() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 ">
-            Don&apos;t have an account?{' '}
+            Don&apos;t have an account?{" "}
             <Link
               to="/signup"
               title=""
@@ -69,12 +76,15 @@ export  default function SignInThree() {
               Create a free account
             </Link>
           </p>
-          <form   onSubmit={handleSubmit}  className="mt-8">
+          <form onSubmit={handleSubmit} className="mt-8">
             <div className="space-y-5">
               <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
-                  {' '}
-                  Email address{' '}
+                <label
+                  htmlFor=""
+                  className="text-base font-medium text-gray-900"
+                >
+                  {" "}
+                  Email address{" "}
                 </label>
                 <div className="mt-2">
                   <input
@@ -82,19 +92,26 @@ export  default function SignInThree() {
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   ></input>
                 </div>
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
-                    {' '}
-                    Password{' '}
+                  <label
+                    htmlFor=""
+                    className="text-base font-medium text-gray-900"
+                  >
+                    {" "}
+                    Password{" "}
                   </label>
-                  <a href="#" title="" className="text-sm font-semibold text-black hover:underline">
-                    {' '}
-                    Forgot password?{' '}
+                  <a
+                    href="#"
+                    title=""
+                    className="text-sm font-semibold text-black hover:underline"
+                  >
+                    {" "}
+                    Forgot password?{" "}
                   </a>
                 </div>
                 <div className="mt-2">
@@ -103,7 +120,7 @@ export  default function SignInThree() {
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -154,5 +171,5 @@ export  default function SignInThree() {
         </div>
       </div>
     </section>
-  )
+  );
 }
