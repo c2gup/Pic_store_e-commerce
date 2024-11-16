@@ -4,6 +4,7 @@ const controllers = require("./routes/authRoute")
 require('dotenv').config();
 app.use(express.json());
 const cors = require('cors');
+const { readdirSync } = require("fs");
 
 app.use(cors());
 
@@ -19,7 +20,10 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.use('/api/v1',controllers );
+// app.use('/api/v1',controllers );
+readdirSync("./routes").map((route) =>
+  app.use("/api", require(`./routes/${route}`))
+);
 
 // Start the server
 app.listen(PORT, () => {
