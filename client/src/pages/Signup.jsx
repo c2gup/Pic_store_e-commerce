@@ -17,7 +17,7 @@ const Signup = () => {
     console.log("Account Type Selected:", accountType); // Log selected account type for debugging
 
     try {
-      const res = await axios.post(import.meta.env.VITE_API_URL + "/api/v1/signup", {
+      const res = await axios.post(import.meta.env.VITE_API_URL + "/api/signup", {
         username,
         email,
         password,

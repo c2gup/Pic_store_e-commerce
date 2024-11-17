@@ -6,7 +6,7 @@ const {
   getAllPosts,
 } = require("../controllers/postController");
 
-router.post("/post/create",  createPost);
+router.post("/post/create", verifyToken, createPost);
 router.get("/post/getAll", getAllPosts);
 router.get("/post/myPosts", verifyToken, getMyPosts);
 

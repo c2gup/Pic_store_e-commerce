@@ -62,7 +62,7 @@ const getMyPosts = async (req, res) => {
         return res
           .status(404)
           .json({ success: false, message: "No posts found" });
-      return res.status(200).json({ success: true, message: error.message });
+      return res.status(200).json({ success: true, data: uploads });
     }
   } catch (error) {
     return res
