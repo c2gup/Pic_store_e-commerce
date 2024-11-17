@@ -4,7 +4,7 @@ const controllers = require("./routes/authRoute")
 require('dotenv').config();
 app.use(express.json());
 const cors = require('cors');
-const { readdirSync } = require("fs");
+const { readdirSync } = require("fs"); 
 
 app.use(cors());
 
