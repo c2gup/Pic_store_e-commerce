@@ -19,7 +19,7 @@ export default function SignInThree() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/v1/login`,
+        `${import.meta.env.VITE_API_URL}/api/login`,
         {
           // Change 'name' to 'username' to match the backend
           email,
