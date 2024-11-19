@@ -10,6 +10,7 @@ import BuyerDashboard  from '../pages/BuyerDashboard';
  import gsap from "gsap";
  import { useEffect, useRef } from "react";
 import Homesection from '../pages/Homesection';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function GsapPage() {
 
@@ -30,10 +31,12 @@ export default function GsapPage() {
     <div ref={nodeRef}>
       <Routes location={location} >
         <Route path="/" element={<Homesection />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/seller/profile" element={<SellerDashboard />} />
-        <Route path="/buyer/profile" element={<BuyerDashboard />} />
+        <Route path="/login" element={<ProtectedRoute children={<LogIn />} requiresAuth={false} />} />
+        <Route path="/signup" element={
+            <ProtectedRoute children={<Signup />} requiresAuth={false} />
+          } />
+        <Route path="/seller/profile" element={<ProtectedRoute children={<SellerDashboard />} />} />
+        <Route path="/buyer/profile" element={<ProtectedRoute children={<BuyerDashboard />} />} />
       </Routes>
     </div>
   );

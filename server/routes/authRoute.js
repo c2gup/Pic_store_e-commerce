@@ -1,7 +1,17 @@
-const { signUp,login } = require("../controllers/authController"); // Check this path
+// Ye hai aam zindagi
+// const express = require("express")
+// const router = express.Router()
+
+const { login, signup, refresh, switchProfile } = require("../controllers/authController");
+const { verifyToken } = require("../middlewares/verifyToken");
+
+// Ye hai mentos zindagi
 const router = require("express").Router();
 
-router.post("/signUp", signUp); // Make sure signUp is correctly imported
-router.post("/login", login); // Make sure signUp is correctly imported
+router.post("/signup", signup);
+router.post("/login", login);
+router.get("/refresh", refresh);
+router.get("/switch", verifyToken, switchProfile);
 
 module.exports = router;
+

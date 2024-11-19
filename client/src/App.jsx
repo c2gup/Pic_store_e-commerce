@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
+import  Navbar  from "./components/Navbar";
 
 import GsapPage from "./components/GsapPage";
 import { Toaster } from "react-hot-toast";
