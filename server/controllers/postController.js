@@ -161,6 +161,63 @@ const getFavourites = async (req, res) => {
   }
 };
 
+const getPostByDateRange = async (req,res) => {
+  const authorId = req.id;
+  const authorAccountType = req.accountType;
+  let data;
+
+  try {
+    
+    if(authorAccountType == "buyer"){
+      const {purchased} = await User.findById(authorId).populate("purchased");
+      data = purchased;
+    }else{
+      const {uploads} = await User.findById(authorId).populate("uploads");
+      data = uploads;
+    }
+
+    if(!data)
+      return res
+      .status(500)
+      .json({success: false, message: "No post found"});
+  
+
+  const now = new Date();
+  
+  const startofYear = new Date(now.getFullYear(), 0,1);
+  const startofMonth = new Date(now.getFullYear(),now.getMonth(),1);
+  const startofWeek = new Date(now.setDate(now.getDate()-now.getDay()));
+
+  const postsThisYear = data.filter(
+    (post) => new Date(post.createdAt) >= startofYear
+  );
+
+  const postsThisMonth = data.filter(
+    (post) => new Date(post.createdAt) >= startofMonth
+
+    );
+
+    const postsThisWeek = data.filter(
+      (post) => new Date(post.createdAt) >= startofWeek
+    );
+
+    return res.status(200).json({
+      success : true,
+      data:{
+        tillNow : data,
+        thisYear : postsThisYear,
+        thisMonth: postsThisMonth,
+        postThisWeek:postsThisWeek,
+
+      },
+    })
+
+
+  } catch (error) {
+    return res.status(500).json({success:false, message:error.message});
+  }
+}
+
 module.exports = {
   createPost,
   getAllPosts,
@@ -170,4 +227,5 @@ module.exports = {
   addToFavourites,
   removeFromFavourites,
   getFavourites,
+  getPostByDateRange
 };
