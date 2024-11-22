@@ -1,9 +1,26 @@
+import axios from "axios";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setAllPosts } from "../../store/slices/postSlice";
+
 
 export default function Home() {
+
+  const dispatch = useDispatch();
+
+  const handelChange = async(e)=>{
+    const searach = e.target.value;
+    const res = await axios.get(
+      import.meta.env.VITE_API_URL + `/api/post/search?search=${searach}`
+    );
+
+    const {data} = await res.data;
+    dispatch(setAllPosts(data));
+    
+  }
   return (
     <>
-      <div className="mt-20">
+      <div className="mt-40">
         <form class="flex items-center   max-w-lg mx-auto">
           <label for="voice-search" class="sr-only">
             Search
@@ -32,6 +49,7 @@ export default function Home() {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-zinc-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search Mockups, Logos, Design Templates..."
               required
+              onChange={handelChange()}
             />
             <button
               type="button"
