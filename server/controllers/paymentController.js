@@ -107,7 +107,6 @@
 // };
 
 
-
 const Razorpay = require("razorpay");
 const User = require("../models/User");
 const Order = require("../models/Order");
@@ -121,10 +120,14 @@ const razorpayInstance = new Razorpay({
 
 // Generate Razorpay order
 const generateOrder = async (req, res) => {
-  const purchaserId = req.id; // Assuming middleware adds `id` to `req`
+  const purchaserId = req.id; // Middleware adds user `id` to `req`
   const { price } = req.body;
 
   try {
+    if (!price || price <= 0) {
+      return res.status(400).json({ success: false, message: "Invalid price amount" });
+    }
+
     const user = await User.findById(purchaserId);
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
@@ -132,17 +135,13 @@ const generateOrder = async (req, res) => {
 
     const options = {
       amount: Math.round(price * 100), // Convert price to paise
-      currency: "INR", 
+      currency: "INR",
       receipt: crypto.randomBytes(10).toString("hex"),
     };
 
-    razorpayInstance.orders.create(options, (error, order) => {
-      if (error) {
-        return res.status(500).json({ success: false, message: error.message });
-      }
+    const order = await razorpayInstance.orders.create(options);
 
-      res.status(200).json({ success: true, data: order });
-    });
+    res.status(200).json({ success: true, data: order });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
