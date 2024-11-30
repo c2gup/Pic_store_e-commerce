@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   purchased: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Post",
+      ref: "Order",
     },
   ],
   favourites: [

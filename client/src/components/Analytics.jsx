@@ -275,7 +275,7 @@ function Analytics() {
           />
           <ExpenseCard
             data={thisMonth}
-            title={`${pathname == "/seller/profile" ? "Earned " : "spent"}`}
+            title={`${pathname == "/seller/profile" ? "Earned " : "spent"} This months`}
             dataKey="price"
             value={
               pathname == "/seller/profile"
@@ -285,7 +285,7 @@ function Analytics() {
           />
           <ExpenseCard
             data={tillNow}
-            title={`${pathname == "/seller/profile" ? "Earned " : "spent"}`}
+            title={`${pathname == "/seller/profile" ? "Earned " : "spent"} Total `}
             dataKey="price"
             value={
               pathname == "/seller/profile"
