@@ -11,8 +11,8 @@ const SellerDashboard = () => {
       <DashboardSidebar />
       <div>{/* we will change the pages through switch case here */} </div>
       {/* <PhotoManagement /> */}
-      {/* <Analytics/> */}
-      <Orders/>
+      <Analytics/>
+      {/* <Orders/> */}
     </div>
   );
 };
