@@ -5,7 +5,7 @@ const navSlice = createSlice({
 
   initialState: {
     sidebar: false,
-    tab: "",
+    tab: "photos-management",
   },
 
   reducers: {

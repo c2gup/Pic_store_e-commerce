@@ -43,33 +43,67 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+// const getMyPosts = async (req, res) => {
+//   const authorId = req.id;
+//   const authorAccountType = req.accountType;
+
+//   console.log(authorId,authorAccountType);
+//   try {
+//     if (authorAccountType === "buyer") {
+//       const user = await User.findById(authorId);
+//       console.log("this is our perfect purchese data",user.purchased);
+//       if (!user || !user.purchased.length) {
+//         return res.status(404).json({ success: false, message: "No posts found" });
+//       }
+//       return res.status(200).json({ success: true, data: user.purchased });
+//     }
+//      else {
+//       const { uploads } = await User.findById(authorId).populate("uploads");
+//       if (!uploads)
+//         return res
+//           .status(404)
+//           .json({ success: false, message: "No posts found" });
+//       return res.status(200).json({ success: true, data: uploads });
+//     }
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .json({ success: false, message: "Internal server error" });
+//   }
+// };
+
+
+
 const getMyPosts = async (req, res) => {
   const authorId = req.id;
   const authorAccountType = req.accountType;
+
   try {
     if (authorAccountType === "buyer") {
-      const { purchased } = await User.findById(authorId).populate("purchased");
-      console.log(purchased);
-      if (!purchased)
-        return res
-          .status(404)
-          .json({ success: false, message: "No posts found" });
-
-      return res.status(200).json({ success: true, data: purchased });
+      const user = await User.findById(authorId).populate("purchased");
+      console.log("try new",user);
+      if (!user || !user.purchased.length) {
+        return res.status(404).json({ success: false, message: "No posts found" });
+      }
+      return res.status(200).json({ success: true, data: user.purchased });
     } else {
-      const { uploads } = await User.findById(authorId).populate("uploads");
-      if (!uploads)
-        return res
-          .status(404)
-          .json({ success: false, message: "No posts found" });
-      return res.status(200).json({ success: true, data: uploads });
+      const user = await User.findById(authorId).populate("uploads");
+      if (!user || !user.uploads.length) {
+        return res.status(404).json({ success: false, message: "No posts found" });
+      }
+      return res.status(200).json({ success: true, data: user.uploads });
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal server error" });
+    return res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
+
+
+
+
+
+
 
 const deletePost = async (req, res) => {
   const { id } = req.params;
