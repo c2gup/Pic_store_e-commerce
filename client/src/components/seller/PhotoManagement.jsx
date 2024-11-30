@@ -31,7 +31,7 @@ const PhotoManagement = () => {
         },
       });
   
-      const  data  = res; // Directly access the data from the response
+      const  {data}  = res.data; // Directly access the data from the response
       console.log("post data", data);
       dispatch(setMyPosts(data)); // Update your Redux state with the fetched posts
     } catch (error) {
