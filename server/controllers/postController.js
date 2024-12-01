@@ -81,7 +81,7 @@ const getMyPosts = async (req, res) => {
   try {
     if (authorAccountType === "buyer") {
       const user = await User.findById(authorId).populate("purchased");
-      console.log("try new",user);
+    
       if (!user || !user.purchased.length) {
         return res.status(404).json({ success: false, message: "No posts found" });
       }
@@ -195,62 +195,133 @@ const getFavourites = async (req, res) => {
   }
 };
 
-const getPostByDateRange = async (req,res) => {
+// const getPostByDateRange = async (req,res) => {
+//   const authorId = req.id;
+//   const authorAccountType = req.accountType;
+//   let data;
+
+//   try {
+    
+//     if(authorAccountType == "buyer"){
+//       const {purchased} = await User.findById(authorId).populate("purchased");
+//       data = purchased;
+//     }else{
+//       const {uploads} = await User.findById(authorId).populate("uploads");
+//       data = uploads;
+//     }
+
+//     if(!data)
+//       return res
+//       .status(500)
+//       .json({success: false, message: "No post found"});
+  
+
+//   const now = new Date();
+  
+//   const startofYear = new Date(now.getFullYear(), 0,1);
+//   const startofMonth = new Date(now.getFullYear(),now.getMonth(),1);
+//   const startofWeek = new Date(now.setDate(now.getDate()-now.getDay()));
+
+//   const postsThisYear = data.filter(
+//     (post) => new Date(post.createdAt) >= startofYear
+//   );
+
+//   const postsThisMonth = data.filter(
+//     (post) => new Date(post.createdAt) >= startofMonth
+
+//     );
+
+//     const postsThisWeek = data.filter(
+//       (post) => new Date(post.createdAt) >= startofWeek
+//     );
+
+//     return res.status(200).json({
+//       success : true,
+//       data:{
+//         tillNow : data,
+//         thisYear : postsThisYear,
+//         thisMonth: postsThisMonth,
+//         postThisWeek:postsThisWeek,
+
+//       },
+//     })
+
+
+//   } catch (error) {
+//     return res.status(500).json({success:false, message:error.message});
+//   }
+// }
+
+
+const getPostByDateRange = async (req, res) => {
   const authorId = req.id;
   const authorAccountType = req.accountType;
-  let data;
 
   try {
-    
-    if(authorAccountType == "buyer"){
-      const {purchased} = await User.findById(authorId).populate("purchased");
-      data = purchased;
-    }else{
-      const {uploads} = await User.findById(authorId).populate("uploads");
-      data = uploads;
+    // Fetch user data based on account type
+    const user = await User.findById(authorId).populate(
+      authorAccountType === "buyer" ? "purchased" : "uploads"
+    );
+
+    const data = authorAccountType === "buyer" ? user.purchased : user.uploads;
+
+    if (!data || data.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "No posts found",
+        data: { tillNow: [], thisYear: [], thisMonth: [], thisWeek: [] },
+      });
     }
 
-    if(!data)
-      return res
-      .status(500)
-      .json({success: false, message: "No post found"});
-  
-
-  const now = new Date();
-  
-  const startofYear = new Date(now.getFullYear(), 0,1);
-  const startofMonth = new Date(now.getFullYear(),now.getMonth(),1);
-  const startofWeek = new Date(now.setDate(now.getDate()-now.getDay()));
-
-  const postsThisYear = data.filter(
-    (post) => new Date(post.createdAt) >= startofYear
-  );
-
-  const postsThisMonth = data.filter(
-    (post) => new Date(post.createdAt) >= startofMonth
-
+    // Filter valid posts with proper dates
+    const validData = data.filter(
+      (post) => post.createdAt && !isNaN(new Date(post.createdAt))
     );
 
-    const postsThisWeek = data.filter(
-      (post) => new Date(post.createdAt) >= startofWeek
+    // Date calculations (normalized to UTC)
+    const now = new Date();
+
+    // Start of the year
+    const startOfYear = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
+
+    // Start of the month
+    const startOfMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+
+    // Start of the week (set to last Sunday, normalized to UTC)
+    const startOfWeek = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const dayOfWeek = startOfWeek.getUTCDay(); // Sunday is 0
+    startOfWeek.setUTCDate(startOfWeek.getUTCDate() - dayOfWeek);
+    startOfWeek.setUTCHours(0, 0, 0, 0);
+
+    // Filter posts by date ranges
+    const postsThisYear = validData.filter(
+      (post) => new Date(post.createdAt) >= startOfYear
+    );
+    const postsThisMonth = validData.filter(
+      (post) => new Date(post.createdAt) >= startOfMonth
+    );
+    const postsThisWeek = validData.filter(
+      (post) => new Date(post.createdAt) >= startOfWeek
     );
 
+    // Return response
     return res.status(200).json({
-      success : true,
-      data:{
-        tillNow : data,
-        thisYear : postsThisYear,
+      success: true,
+      data: {
+        tillNow: validData,
+        thisYear: postsThisYear,
         thisMonth: postsThisMonth,
-        postThisWeek:postsThisWeek,
-
+        thisWeek: postsThisWeek,
       },
-    })
-
-
+    });
   } catch (error) {
-    return res.status(500).json({success:false, message:error.message});
+    console.error(error);
+    return res.status(500).json({ success: false, message: error.message });
   }
-}
+};
+
+
+
 
 module.exports = {
   createPost,
