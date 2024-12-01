@@ -18,7 +18,7 @@ app.use(express.json());
 //   })
 // );
 
-const cors = require('cors');
+// const cors = require('cors');
 
 // Middleware
 // const allowedOrigins = ['https://pic-prism-my.vercel.app', 'http://localhost:5173'];
