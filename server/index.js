@@ -18,13 +18,15 @@ app.use(express.json());
 //   })
 // );
 
+const cors = require('cors');
 
-const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'];
+// Middleware
+const allowedOrigins = ['https://pic-prism-my.vercel.app', 'http://localhost:5173'];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
+      // Allow requests with no origin (like Postman) or valid origins
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -34,6 +36,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 // Connect to the database
 connectDb();
