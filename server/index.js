@@ -12,12 +12,12 @@ app.use(express.json());
 require('dotenv').config();
 
 
-// app.use(
-//   cors({
-//     origin: process.env.CLIENT_URL, // Replace with your frontend URL
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL, // Replace with your frontend URL
+    credentials: true,
+  })
+);
 
 
 app.use(cors({ origin: true, credentials: true }));
