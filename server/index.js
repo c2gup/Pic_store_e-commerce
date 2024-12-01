@@ -39,7 +39,7 @@ app.use(express.json());
 
 // app.use(cors({ origin: "*" }));
 
-const cors = require('cors');
+
 app.use(cors({
     origin: 'https://pic-prism-my.vercel.app',
     credentials: true,
