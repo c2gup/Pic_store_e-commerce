@@ -1,7 +1,7 @@
 
 
 const express = require('express');
-const cors = require('cors');
+
 const { readdirSync } = require('fs');
 const path = require('path');
 const { connectDb } = require('./db/connection');
