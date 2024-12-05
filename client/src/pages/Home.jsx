@@ -6,6 +6,8 @@ import { setAllPosts } from "../../store/slices/postSlice";
 
 export default function Home() {
 
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   const handelChange = async(e)=>{
@@ -83,6 +85,7 @@ export default function Home() {
               fill="none"
               viewBox="0 0 20 20"
             >
+              
               <path
                 stroke="currentColor"
                 stroke-linecap="round"
