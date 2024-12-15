@@ -1,6 +1,6 @@
 https://pic-prism-4zcnvzrl3-anupam-guptas-projects.vercel.app/
 
-# [Project Name]
+# [Pic-Store]
 
 Welcome to the [Project Name] repository! 🚀  
 This project aims to [briefly describe your project's goal or purpose]. We welcome contributions from the community to help improve and expand this project.
