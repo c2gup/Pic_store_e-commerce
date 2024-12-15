@@ -6,6 +6,7 @@ const { readdirSync } = require('fs');
 const path = require('path');
 const { connectDb } = require('./db/connection');
 require('dotenv').config();
+const PORT =8000;
 
 const app = express();
 
@@ -41,7 +42,8 @@ app.use(express.json());
 
 
 app.use(cors({
-    origin: 'https://pic-prism-my.vercel.app',
+    // origin: 'https://pic-prism-my.vercel.app',
+    origin: 'http://localhost:5173',
     credentials: true,
 }));
 
@@ -54,6 +56,11 @@ connectDb();
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 
 // Dynamically load and use routes
 const routesPath = path.join(__dirname, 'routes');
