@@ -42,8 +42,8 @@ app.use(express.json());
 
 
 app.use(cors({
-    // origin: 'https://pic-prism-my.vercel.app',
-    origin: 'http://localhost:5173',
+    origin: 'https://pic-prism-my.vercel.app',
+    // origin: 'http://localhost:5173',
     credentials: true,
 }));
 
