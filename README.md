@@ -2,7 +2,7 @@ https://pic-prism-4zcnvzrl3-anupam-guptas-projects.vercel.app/
 
 # [Pic-Store]
 
-Welcome to the [Project Name] repository! 🚀  
+Welcome to the [Pic-Store] repository! 🚀  
 This project aims to [briefly describe your project's goal or purpose]. We welcome contributions from the community to help improve and expand this project.
 
 ---
@@ -89,6 +89,18 @@ We welcome and appreciate contributions! 🎉 If you'd like to help make **Pic S
    For example:
    ```bash
    git commit -m "Fixed bug: Image upload issue in dashboard"
+   ```
 
+Push Your Branch 🚀
+  ```bash
+     git push origin feature-name
+  ```
 
+## 📬 Let's Connect  
+
+Want to collaborate or just say hello? Follow me on:
+
+- **[LinkedIn](https://www.linkedin.com/in/c2gup/)**
+- **[Twitter](https://twitter.com/yourhandle)**
+- **[GitHub](https://github.com/c2gup)**
 
