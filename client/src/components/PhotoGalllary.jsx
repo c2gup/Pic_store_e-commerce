@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAllPosts } from "../../store/slices/postSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 
 function PhotoGalllary() {
@@ -19,15 +20,19 @@ function PhotoGalllary() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const [loading, setLoading] = useState(false);
+  const [page, setpage] = useState(1);
 
   const getAllPosts = async () => {
+
     if (loading) return; 
     setLoading(true);
-    if (posts.length > 0) return;
+    const params = {page,limit:6};
 
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/post/getAll`
+        `${import.meta.env.VITE_API_URL}/api/post/getAll`,{
+          params,
+        }
       );
       if (response.status !== 200) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -112,7 +117,7 @@ function PhotoGalllary() {
 
   useEffect(() => {
     getAllPosts();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -144,6 +149,27 @@ function PhotoGalllary() {
             />
           ))}
         </div>
+
+       {/* buttons */}
+       <div className="flex mt-10 space-x-3">
+      {/* Previous Button */}
+      <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      
+      onClick={(() => setpage((prev)=> prev-1))}
+      >
+        <FaArrowLeft className="w-4 h-4 mr-2" />
+        Previous
+      </button>
+      
+      {/* Next Button */}
+      <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      onClick={()=>setpage((prev) => prev+1)}
+      
+      >
+        Next
+        <FaArrowRight className="w-4 h-4 ml-2" />
+      </button>
+    </div>
       </div>)
     }
     </>

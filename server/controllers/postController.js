@@ -30,8 +30,15 @@ const createPost = async (req, res) => {
 };
 
 const getAllPosts = async (req, res) => {
+
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  const skip = (page-1) *limit;
   try {
-    const posts = await Post.find({});
+    const posts = await Post.find({})
+    .sort({createdAt:-1})
+    .skip(skip)
+    .limit(limit);
     if (posts.length === 0)
       return res
         .status(404)
