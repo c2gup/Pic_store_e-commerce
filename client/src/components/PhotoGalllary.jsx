@@ -1,6 +1,4 @@
-
-
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosHeart } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
 import ImageCard from "./ImageCard";
@@ -12,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-
 function PhotoGalllary() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,30 +19,71 @@ function PhotoGalllary() {
   const [loading, setLoading] = useState(false);
   const [page, setpage] = useState(1);
 
+  // const getAllPosts = async () => {
+  //   if (loading) return;
+  //   setLoading(true);
+  //   const params = { page, limit: 6 };
+
+  //   try {
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_API_URL}/api/post/getAll`,
+  //       {
+  //         params,
+  //       }
+  //     );
+  //     if (response.status !== 200) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+
+  //     const { data } = response.data;
+
+  //     if (!data || data.length === 0) {
+  //       console.warn("No more posts available.");
+  //       return;
+  //     }
+     
+  //     dispatch(setAllPosts(data));
+  //   } catch (error) {
+  //     console.error("Error fetching posts:", error.message || error);
+  //   }
+
+  //   setLoading(false);
+  // };
+
+
   const getAllPosts = async () => {
-
-    if (loading) return; 
+    if (loading) return;
     setLoading(true);
-    const params = {page,limit:6};
-
+    
+    const params = { page, limit: 6 };
+  
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/post/getAll`,{
-          params,
-        }
+        `${import.meta.env.VITE_API_URL}/api/post/getAll`,
+        { params }
       );
+  
       if (response.status !== 200) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
-      const { data } = response.data;
+  
+      const { data, pagination } = response.data;
+  
+      if (data.length === 0) {
+        console.warn("No more posts available.");
+        return;
+      }
+  
       dispatch(setAllPosts(data));
+  
+      console.log(`Fetched page ${pagination.currentPage} of ${pagination.totalPages}`);
     } catch (error) {
-      console.error("Error fetching posts:", error.message || error);
+      console.error("Error fetching posts:", error.message);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
+   
 
   const purchaseImage = async (price, id, postUrl, author, title) => {
     if (!isAuthenticated) {
@@ -73,7 +111,14 @@ function PhotoGalllary() {
     }
   };
 
-  const handlePaymentVerify = (orderData, id, postUrl, author, title, price) => {
+  const handlePaymentVerify = (
+    orderData,
+    id,
+    postUrl,
+    author,
+    title,
+    price
+  ) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: orderData.amount, // Amount in paise
@@ -106,7 +151,9 @@ function PhotoGalllary() {
 
           toast.success("Payment successful! Image purchased.");
         } catch (error) {
-          toast.error(error.response?.data?.message || "Payment verification failed.");
+          toast.error(
+            error.response?.data?.message || "Payment verification failed."
+          );
         }
       },
     };
@@ -121,57 +168,65 @@ function PhotoGalllary() {
 
   return (
     <>
-    
-    {
-      loading ? <Spinner/> :(<div className="my-2 bg-white flex flex-col justify-center items-center">
-        <h3 className="text-3xl font-semibold my-2">Photos</h3>
-  
-        <div className="grid sm:grid-cols-3 gap-5 bg-20">
-          {posts?.map((post) => (
-            <ImageCard
-              key={post._id}
-              title={post.title}
-              author={post.author}
-              img={post.image}
-              price={post.price}
-              icon1={
-                <FaShoppingCart
-                  className="text-2xl text-black cursor-pointer hover:scale-110 transition-all ease-linear duration-300"
-                  title="Cart"
-                  onClick={() =>
-                    purchaseImage(post.price, post._id, post.image, post.author, post.title)
-                  }
-                />
-              }
-              icon2={
-                <IoIosHeart className="text-2xl text-red-500 cursor-pointer hover:scale-110 transition-all ease-linear duration-300" />
-              }
-            />
-          ))}
-        </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="my-2 bg-white flex flex-col justify-center items-center">
+          <h3 className="text-3xl font-semibold my-2">Photos</h3>
 
-       {/* buttons */}
-       <div className="flex mt-10 space-x-3">
-      {/* Previous Button */}
-      <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-      
-      onClick={(() => setpage((prev)=> prev-1))}
-      >
-        <FaArrowLeft className="w-4 h-4 mr-2" />
-        Previous
-      </button>
-      
-      {/* Next Button */}
-      <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-      onClick={()=>setpage((prev) => prev+1)}
-      
-      >
-        Next
-        <FaArrowRight className="w-4 h-4 ml-2" />
-      </button>
-    </div>
-      </div>)
-    }
+          <div className="grid sm:grid-cols-3 gap-5 bg-20">
+            {posts?.map((post) => (
+              <ImageCard
+                key={post._id}
+                title={post.title}
+                author={post.author}
+                img={post.image}
+                price={post.price}
+                tags={post?.tags}
+                icon1={
+                  <FaShoppingCart
+                    className="text-2xl text-black cursor-pointer hover:scale-110 transition-all ease-linear duration-300"
+                    title="Cart"
+                    onClick={() =>
+                      purchaseImage(
+                        post.price,
+                        post._id,
+                        post.image,
+                        post.author,
+                        post.title
+                      )
+                    }
+                  />
+                }
+                icon2={
+                  <IoIosHeart className="text-2xl text-red-500 cursor-pointer hover:scale-110 transition-all ease-linear duration-300" />
+                }
+              />
+            ))}
+          </div>
+
+          {/* buttons */}
+          <div className="flex mt-10 space-x-3">
+            {/* Previous Button */}
+            <button
+              className="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              onClick={() => setpage((prev) => prev - 1)}
+            >
+              <FaArrowLeft className="w-4 h-4 mr-2" />
+              Previous
+            </button>
+
+            {/* Next Button */}
+            <button
+              className="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              onClick={() => setpage((prev) => prev + 1)}
+            >
+              Next
+              <FaArrowRight className="w-4 h-4 ml-2" />
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

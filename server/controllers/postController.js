@@ -11,10 +11,10 @@ const createPost = async (req, res) => {
       .json({ success: false, message: "Forbidden, only sellers can post" });
   }
 
-  const { title, author, price, image, publicId } = req.body;
+  const { title, author, price, image, publicId,tags } = req.body;
 
   try {
-    const post = new Post({ title, author, price, image, publicId, authorId });
+    const post = new Post({ title, author, price, image, publicId, authorId ,tags });
     await post.save();
 
     await User.findByIdAndUpdate(authorId, {
@@ -29,26 +29,62 @@ const createPost = async (req, res) => {
   }
 };
 
+// const getAllPosts = async (req, res) => {
+
+//   const page = parseInt(req.query.page);
+//   const limit = parseInt(req.query.limit);
+//   const skip = (page-1) *limit;
+//   try {
+//     const posts = await Post.find({})
+//     .sort({createdAt:-1})
+//     .skip(skip)
+//     .limit(limit);
+//     if (posts.length === 0)
+//       return res
+//         .status(404)
+//         .json({ success: false, message: "No posts found" });
+
+//     return res.status(200).json({ success: true, data: posts });
+//   } catch (error) {
+//     return res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
+
+
 const getAllPosts = async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Default to page 1
+  const limit = parseInt(req.query.limit) || 6; // Default limit to 6
+  const skip = (page - 1) * limit;
 
-  const page = parseInt(req.query.page);
-  const limit = parseInt(req.query.limit);
-  const skip = (page-1) *limit;
   try {
+    // Fetch posts with pagination
     const posts = await Post.find({})
-    .sort({createdAt:-1})
-    .skip(skip)
-    .limit(limit);
-    if (posts.length === 0)
-      return res
-        .status(404)
-        .json({ success: false, message: "No posts found" });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
-    return res.status(200).json({ success: true, data: posts });
+    // Total count for pagination metadata
+    const totalPosts = await Post.countDocuments();
+
+    return res.status(200).json({
+      success: true,
+      data: posts,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(totalPosts / limit),
+        totalPosts,
+      },
+    });
   } catch (error) {
-    return res.status(500).json({ success: false, message: error.message });
+    console.error("Error fetching posts:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
   }
 };
+
 
 // const getMyPosts = async (req, res) => {
 //   const authorId = req.id;
