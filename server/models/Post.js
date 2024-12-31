@@ -30,6 +30,9 @@ const postSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    tags: {
+      type: [String],
+    },
     purchasedBy: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,4 +1,4 @@
-const ImageCard = ({ id, img, title, price, author, icon1, icon2 }) => {
+const ImageCard = ({ id, img, title, price, author, icon1, icon2,tags }) => {
       return (
         <div className="rounded-lg bg-white shadow-lg p-2">
           <div className="w-full h-[200px] overflow-hidden rounded-2xl">
@@ -20,6 +20,22 @@ const ImageCard = ({ id, img, title, price, author, icon1, icon2 }) => {
               {icon1}
               {icon2}
             </div>
+           
+
+
+                {/* Tags Section */}
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-3">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="text-sm text-white bg-blue-500 px-3 py-1 rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
           </div>
         </div>
       );
