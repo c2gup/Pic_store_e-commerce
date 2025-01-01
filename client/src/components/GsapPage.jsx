@@ -4,6 +4,7 @@ import LogIn from '../pages/Login'; // Assuming LogIn is a default export
 import Signup from '../pages/Signup'; // Assuming Signup is a default export
 import SellerDashboard from '../pages/SellerDashboard';
 import BuyerDashboard  from '../pages/BuyerDashboard';
+import VerifyEmail from "../components/VerifyEmail";
 
 
  // Assuming Home is a default export
@@ -35,6 +36,13 @@ export default function GsapPage() {
         <Route path="/signup" element={
             <ProtectedRoute children={<Signup />} requiresAuth={false} />
           } />
+            <Route
+          path="/verify-email"
+          element={
+            <ProtectedRoute children={<VerifyEmail />} requiresAuth={false} />
+          }
+        />
+
         <Route path="/seller/profile" element={<ProtectedRoute children={<SellerDashboard />} />} />
         <Route path="/buyer/profile" element={<ProtectedRoute children={<BuyerDashboard />} />} />
       </Routes>
