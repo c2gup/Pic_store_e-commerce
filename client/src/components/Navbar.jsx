@@ -4,7 +4,6 @@
 // import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 // import { Link, useLocation } from "react-router-dom";
 
-
 // const menuItems = [
 //   {
 //     name: "Home",
@@ -21,15 +20,13 @@
 // ];
 
 // export function Navbar() {
-  
+
 //   const { pathname } = useLocation();
 //   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
 //   const toggleMenu = () => {
 //     setIsMenuOpen(!isMenuOpen);
 //   };
-
- 
 
 //   return (
 //     <div className={`relative ${
@@ -164,7 +161,6 @@
 //   );
 // }
 
-
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, login } from "../../store/slices/authSlice";
@@ -212,9 +208,9 @@ const Navbar = () => {
       {/* logo and site name */}
       <div className="flex justify-between items-center">
         {/* I will add the image here later */}
-        <img src="/picprismlogo.png" alt="our logo" className="w-[50px]" />
-        <Link to="/" className="font-bold text-3xl">
-          PicPrism
+        {/* <img src="/picprismlogo.png" alt="our logo" className="w-[50px]" /> */}
+        <Link to="/" className="font-bold text-3xl ml-16">
+          Pic<span className="text-blue-700">Prism</span>
         </Link>
       </div>
 
