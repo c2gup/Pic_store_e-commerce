@@ -20,7 +20,7 @@ export default function Home() {
   }
   return (
     <>
-      <div className="mt-40">
+      <div className="mt-40 bg-[#2B2B2B]">
         <form class="flex items-center   max-w-lg mx-auto">
           <label for="voice-search" class="sr-only">
             Search

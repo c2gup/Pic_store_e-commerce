@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Adjust to your project structure
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        spaceMono: ['"Space Mono"', 'monospace','Work Sans'], // Add your custom font
+      },
+    },
   },
   plugins: [],
 }

@@ -4,6 +4,7 @@ const { readdirSync } = require('fs');
 const path = require('path');
 const { connectDb } = require('./db/connection');
 require('dotenv').config();
+const PORT = 8080;
 
 
 
