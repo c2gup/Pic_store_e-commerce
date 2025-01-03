@@ -1,9 +1,9 @@
 // data.js
-import icon from "../src/assets/Icon (2).png"
+
 export const cardData = [
       {
         id: 1,
-        image: "../src/assets/Icon (1).png", // Relative path to the asset
+        image: "../src/assets/Earn.png", // Relative path to the asset
         date: "10th Oct 2022",
         title: "Start Earning",
         description:
@@ -11,7 +11,7 @@ export const cardData = [
       },
       {
         id: 2,
-        image: "../src/assets/Icon (2).png",
+        image: "../src/assets/Invest.png",
         date: "12th Nov 2022",
         title: "Create Collection",
         description:
