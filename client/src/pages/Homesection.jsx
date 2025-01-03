@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from './Home'
 import PhotoGalllary from '../components/PhotoGalllary'
+import CtaPage from './../components/CtaPage';
 
 
 export default  function Homesection() {
@@ -8,6 +9,7 @@ export default  function Homesection() {
     <div>
       <Home/>
       <PhotoGalllary/>
+      <CtaPage/>
     </div>
   )
 }
