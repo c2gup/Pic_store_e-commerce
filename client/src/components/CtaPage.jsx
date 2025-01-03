@@ -1,7 +1,7 @@
 import React from "react";
 
 import { cardData } from "../../data/CtaData";
-import sice from "../../src/assets/Photo.png";
+import sice from "/assets/Photo.png";
 
 function CtaPage() {
   return (
