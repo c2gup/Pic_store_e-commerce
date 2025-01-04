@@ -6,7 +6,7 @@ const { readdirSync } = require('fs');
 const path = require('path');
 const { connectDb } = require('./db/connection');
 require('dotenv').config();
-const PORT =8000;
+const PORT =8050;
 
 const app = express();
 
@@ -43,7 +43,7 @@ app.use(express.json());
 
 app.use(cors({
     origin: 'https://pic-prism-my.vercel.app',
-    // origin: 'http://localhost:5173',
+    // origin: 'http://localhost:5174',
     credentials: true,
 }));
 
