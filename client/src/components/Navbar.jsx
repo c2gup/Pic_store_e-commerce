@@ -42,7 +42,7 @@ const Navbar = () => {
           : "fixed"
       } top-0 left-0 right-0 text-[#ffff] shadow-md gap-1 sm:gap-0 z-30 bg-[#2B2B2B]`}
     >
-      {/* logo and site name */}
+     
       <div className="flex justify-between items-center">
 
         <Link to="/" className="font-bold text-purple-500  text-3xl ml-16">
@@ -50,7 +50,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* list of other tabs */}
+     
 
       <ul className="flex gap-5 text-lg font-semibold text-[#ffff] ml-5 sm:ml-0">
         <Link to="/" className="hover:text-black cursor-pointer sm:p-2">

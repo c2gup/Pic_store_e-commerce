@@ -13,6 +13,8 @@ import Footer from "./Footer";
 import Homesection from '../pages/Homesection';
 import ProtectedRoute from './ProtectedRoute';
 
+import VerifyEmail from './VerifyEmail';
+
 export default function GsapPage() {
 
       const nodeRef = useRef(null);
@@ -35,6 +37,9 @@ export default function GsapPage() {
         <Route path="/login" element={<ProtectedRoute children={<LogIn />} requiresAuth={false} />} />
         <Route path="/signup" element={
             <ProtectedRoute children={<Signup />} requiresAuth={false} />
+          } />
+        <Route path="/verify-email" element={
+            <ProtectedRoute children={<VerifyEmail />} requiresAuth={false} />
           } />
         <Route path="/seller/profile" element={<ProtectedRoute children={<SellerDashboard />} />} />
         <Route path="/buyer/profile" element={<ProtectedRoute children={<BuyerDashboard />} />} />
