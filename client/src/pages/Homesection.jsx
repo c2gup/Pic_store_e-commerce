@@ -10,8 +10,9 @@ export default  function Homesection() {
   return (
     <div>
       <Home/>
-      <TopCreaters/>
+     
       <PhotoGalllary/>
+      <TopCreaters/>
       <Trending />
       <CtaPage/>
      
