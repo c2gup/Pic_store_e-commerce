@@ -171,10 +171,10 @@ function PhotoGalllary() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="my-2 bg-[#2b2b2b] flex flex-col justify-center items-center">
-          <h3 className="text-3xl font-semibold text-white font-mono my-2">Photos</h3>
+        <div className="my-2 bg-[#2b2b2b] w-[85%] m-auto flex flex-col justify-center items-center">
+          <h3 className="text-4xl mt-5 font-semibold text-white font-mono my-2">Photos</h3>
 
-          <div className="grid sm:grid-cols-3 gap-5 bg-20">
+          <div className="grid mt-5  sm:grid-cols-3 gap-5 bg-20">
             {posts?.map((post) => (
               <ImageCard
                 key={post._id}
