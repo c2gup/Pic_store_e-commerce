@@ -20,15 +20,6 @@ const firebaseConfig = {
 };
 
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyA-eoVOERffFhRap8wXOzHfmzNtX6O1_8w",
-//   authDomain: "picwebsite-f72d2.firebaseapp.com",
-//   projectId: "picwebsite-f72d2",
-//   storageBucket: "picwebsite-f72d2.firebasestorage.app",
-//   messagingSenderId: "546937015925",
-//   appId: "1:546937015925:web:a7070bdf4107eab3c0b23c",
-//   measurementId: "G-SYGG5CF4VF"
-// };
 
 
 const app = initializeApp(firebaseConfig);
@@ -41,8 +32,9 @@ export default async function googleAuth() {
   try {
     let data = await signInWithPopup(auth, provider);
     return data.user;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+  console.log(err);
+
   }
 }
 
