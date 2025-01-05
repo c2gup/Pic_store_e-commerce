@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import contact_image from "../../public/assets/ImagePlace.png";
-import user_icon from "../../public/assets/User.png";
-import password_icon from "../../public/assets/LockKey.png";
-import email_icon from "../../public/assets/EnvelopeSimple.png";
+import contact_image from "/assets/ImagePlace.png";
+import user_icon from "/assets/User.png";
+import password_icon from "/assets/LockKey.png";
+import email_icon from "/assets/EnvelopeSimple.png";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    console.log("Account Type Selected:", accountType); // Log selected account type for debugging
+    console.log("Account Type Selected:", accountType); 
 
     try {
       const res = await axios.post(

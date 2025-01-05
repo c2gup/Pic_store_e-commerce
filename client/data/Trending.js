@@ -1,9 +1,9 @@
-import user1 from "../public/assets/img6.png"
-import user2 from "../public/assets/img7.png"
-import user3 from "../public/assets/img8.png"
-import trend2 from "../public/assets/trend2.png"
-import trend3 from "../public/assets/trend3.png"
-import trend1 from "../public/assets/Image1.png"
+import user1 from "/assets/img6.png"
+import user2 from "/assets/img7.png"
+import user3 from "/assets/img8.png"
+import trend2 from "/assets/trend2.png"
+import trend3 from "/assets/trend3.png"
+import trend1 from "/assets/Image1.png"
 
 
 const TrendData=[
