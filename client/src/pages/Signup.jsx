@@ -28,7 +28,10 @@ const Signup = () => {
           email,
           password,
           accountType,
-        }
+        },
+          {
+        withCredentials: true, // Place withCredentials inside the config object
+      }
       );
       const data = res.data;
 
