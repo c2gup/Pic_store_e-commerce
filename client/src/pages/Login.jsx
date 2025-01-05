@@ -6,16 +6,42 @@ import axios from "axios";
 import { useState } from "react";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch } from "react-redux";
-import contact_image from "../../public/assets/ImagePlace.png";
-import password_icon from "../../public/assets/LockKey.png";
-import email_icon from "../../public/assets/EnvelopeSimple.png";
+import contact_image from "/assets/ImagePlace.png";
+import password_icon from "/assets/LockKey.png";
+import email_icon from "/assets/EnvelopeSimple.png";
+import  googleAuth  from "../../utils/firebase";
 
 export default function SignInThree() {
-  const dipatch = useDispatch();
+ 
+  
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleGoogleSignIn() {
+    try {
+      const data = await googleAuth();
+      const googleToken = data.accessToken;
+      console.log(googleToken);
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/login`,
+        {googleToken }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        dispatch(login(res.data));
+        navigate(`/${res.data.role}/profile`);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Google login failed.");
+      console.error(error);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,29 +49,19 @@ export default function SignInThree() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/login`,
-        {
-          // Change 'name' to 'username' to match the backend
-          email,
-          password,
-        }
+        { email, password }
       );
 
-      const data = await res.data;
-
-      if (data.success) {
+      if (res.data.success) {
+        toast.success(res.data.message);
+        dispatch(login(res.data));
+        navigate(`/${res.data.role}/profile`);
         setEmail("");
-
         setPassword("");
-
-        const data = await res.data;
-        toast.success(data.message);
-        // dipatch karna hai login -> jo bhi data aa raha hai sab push karna hai state me
-        dipatch(login(data));
-        navigate(`/${data.role}/profile`);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
-      console.error(error); // Log the actual error for debugging
+      toast.error(error.response?.data?.message || "Something went wrong.");
+      console.error(error);
     }
   };
   return (
@@ -153,6 +169,7 @@ export default function SignInThree() {
           <div className="mt-3 space-y-3">
             <button
               type="button"
+              onClick={handleGoogleSignIn}
               className="relative inline-flex w-full items-center justify-center rounded-full border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >
               <span className="mr-2 inline-block">

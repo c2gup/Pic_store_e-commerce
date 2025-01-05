@@ -1,8 +1,8 @@
 import React from 'react';
-import card1 from "../../public/assets/Image1.png";
-import see_icon from "../../public/assets/Eye.png"
-import trend_bg from "../../public/assets/trending.jpg"
-import trend_bg2 from "../../public/assets/trending_bg.png"
+import card1 from "/assets/Image1.png";
+import see_icon from "/assets/Eye.png"
+import trend_bg from "/assets/trending.jpg"
+import trend_bg2 from "/assets/trending_bg.png"
 
 
 export default function Trending2() {

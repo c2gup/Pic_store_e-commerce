@@ -1,11 +1,11 @@
-import brs1 from "../public/assets/brs1.png";
-import brs2 from "../public/assets/brs2.png";
-import brs3 from "../public/assets/brs3.png";
-import brs4 from "../public/assets/brs4.png";
-import brs5 from "../public/assets/brs5.png";
-import brs6 from "../public/assets/brs6.png";
-import brs7 from "../public/assets/brs7.png";
-import brs8 from "../public/assets/brs8.png";
+import brs1 from "/assets/brs1.png";
+import brs2 from "/assets/brs2.png";
+import brs3 from "/assets/brs3.png";
+import brs4 from "/assets/brs4.png";
+import brs5 from "/assets/brs5.png";
+import brs6 from "/assets/brs6.png";
+import brs7 from "/assets/brs7.png";
+import brs8 from "/assets/brs8.png";
 
 const brsData = [
     { image: brs1, name: "Art" },

@@ -1,6 +1,4 @@
-// Ye hai aam zindagi
-// const express = require("express")
-// const router = express.Router()
+
 
 const { login, signup, refresh, switchProfile,verifyEmail } = require("../controllers/authController");
 const { verifyToken } = require("../middlewares/verifyToken");

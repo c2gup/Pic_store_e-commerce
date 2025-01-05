@@ -1,5 +1,5 @@
 import React from "react";
-import see_icon from "../../public/assets/Eye.png";
+import see_icon from "/assets/Eye.png";
 import NFTs from "./NFTs";
 import Trending2 from "./Trending2";
 import TopCreaters from "./TopCreaters";

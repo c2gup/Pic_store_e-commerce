@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import data from "../../data/Data"; // Import the JSON file directly
-import rank_icon from "../../public/assets/RocketLaunch.png";
+import rank_icon from "/assets/RocketLaunch.png";
 import BrowseCategory from "./BrowseCategory";
 
 export default function TopCreaters() {
