@@ -20,6 +20,8 @@ const firebaseConfig = {
 };
 
 
+console.log(apiKey);
+console.log(firebaseConfig);
 
 
 const app = initializeApp(firebaseConfig);
