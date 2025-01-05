@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/api/*",
+      "source": "/(.*)",  // Adjusted regex to capture all API routes
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -13,7 +13,7 @@
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization" 
+          "value": "Content-Type, Authorization"
         }
       ]
     }
