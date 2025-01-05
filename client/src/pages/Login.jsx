@@ -54,7 +54,8 @@ export default function SignInThree() {
   
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/login`,
-        { accessToken: idToken }
+        { accessToken: idToken },
+        withCredentials: true,
       );
   
       if (res.data.success) {
@@ -74,7 +75,8 @@ export default function SignInThree() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/login`,
-        { email, password }
+        { email, password },
+        withCredentials: true,
       );
 
       if (res.data.success) {
