@@ -11,6 +11,7 @@ const PORT =8050;
 const app = express();
 
 // Middleware
+app.use(cors({ origin: 'https://pic-prism-my.vercel.app' }));
 app.use(express.json());
 // app.use(
 //   cors({
@@ -38,7 +39,7 @@ app.use(express.json());
 //   })
 // );
 
-app.use(cors({ origin: "*" }));
+// app.use(cors({ origin: "*" }));
 
 
 // app.use(cors({
