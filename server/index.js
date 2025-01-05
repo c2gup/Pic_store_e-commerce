@@ -43,11 +43,23 @@ app.use(express.json());
 // app.use(cors({ origin: "*" }));
 
 
-app.use(cors({
-    origin: 'https://pic-prism-my.vercel.app',
-    // origin: 'http://localhost:5173',
-    credentials: true,
-}));
+// app.use(cors({
+//     origin: 'https://pic-prism-my.vercel.app',
+//     // origin: 'http://localhost:5173',
+//     credentials: true,
+// }));
+
+
+// CORS options to allow frontend requests
+const corsOptions = {
+  origin: 'https://pic-prism-my.vercel.app',  // The frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Ensure all methods including OPTIONS are allowed
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Customize allowed headers
+  credentials: true, // Allow credentials (cookies, authentication tokens, etc.)
+};
+
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
 
 // Enable CORS for your frontend domain
 // const corsOptions = {
