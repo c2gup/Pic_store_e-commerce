@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import data from "../../data/Data"; // Import the JSON file directly
 import rank_icon from "../../public/assets/RocketLaunch.png";
+import BrowseCategory from "./BrowseCategory";
 
 export default function TopCreaters() {
   const [dataList, setDataList] = useState(data); // Use the imported data
 
-  return (
-    <div className=" flex justify-center  w-[90%] m-auto items-center flex-col ">
+  return (<>
+  <div className=" flex justify-center  w-[90%] m-auto items-center flex-col ">
       <div className="min-h-screen  bg-cover bg-center">
         <div className="upper_creaters flex justify-between items-center">
           <div className="left_upper_creater p-5 m-5">
@@ -86,5 +87,10 @@ export default function TopCreaters() {
 
       </div>
     </div>
+    <BrowseCategory/>
+
+  </>
+    
+
   );
 }
