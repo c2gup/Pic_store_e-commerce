@@ -50,12 +50,12 @@ export default function SignInThree() {
   };
   return (
     <section>
-      <div className="flex bg-[#2B2B2B]     sm:py-16  ">
+      <div className="flex bg-[#2B2B2B]  ">
         <div className="w-[50%]  ml-0  pl-0  overflow-hidden">
-          <img src={contact_image} alt="" className=" h-[650px] w-[850px]  " />
+          <img src={contact_image} alt="" className=" h-[700px] w-[850px]  " />
         </div>
 
-        <div className="xl:mx-auto mt-10 xl:w-full xl:max-w-sm 2xl:max-w-md h-[650px]">
+        <div className=" mt-30 m-auto  ">
           <div className="mb-2 flex justify-center">
             <svg
               width="50"

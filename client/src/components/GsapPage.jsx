@@ -41,6 +41,7 @@ export default function GsapPage() {
         <Route path="/verify-email" element={
             <ProtectedRoute children={<VerifyEmail />} requiresAuth={false} />
           } />
+        
         <Route path="/seller/profile" element={<ProtectedRoute children={<SellerDashboard />} />} />
         <Route path="/buyer/profile" element={<ProtectedRoute children={<BuyerDashboard />} />} />
       </Routes>
