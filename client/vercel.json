@@ -1,21 +1,9 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)",  // Adjusted regex to capture all API routes
-      "headers": [
+    "routes": [
         {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://pic-prism-my.vercel.app"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, PUT, DELETE"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
+            "src": "/[^.]+",
+            "dest": "/",
+            "status": 200
         }
-      ]
-    }
-  ]
+    ]
 }
