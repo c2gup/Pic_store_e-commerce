@@ -6,13 +6,13 @@ export default function BrowseCategory() {
 
     useEffect(() => {
         // Set the card data when the component mounts
-        setCards(browseData);
+        setCards(browseData); 
     }, []);
 
     return (
         <div className="w-[85%] m-auto items-center flex-col">
             <h1 className="text-3xl mb-10 mt-10 font-serif font-bold text-white">
-                Browse Category
+                Browse Category more this 
             </h1>
             <div className="grid md:grid-cols-4 gap-10">
     {cards.map((card, index) => (
