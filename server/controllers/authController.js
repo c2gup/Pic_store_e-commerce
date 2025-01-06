@@ -6,26 +6,6 @@ const { generateRefreshToken } = require("../helpers/refreshToken");
 const transporter = require("../utils/transporter");
 
 const crypto = require("crypto");
-const admin = require("firebase-admin");
-
-admin.initializeApp({
-  credential: admin.credential.cert({
-   type: process.env.FIREBASE_TYPE,
-  project_id: process.env.FIREBASE_PROJECT_ID,
-  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
-  private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-  client_email: process.env.FIREBASE_CLIENT_EMAIL,
-  client_id: process.env.FIREBASE_CLIENT_ID,
-  auth_uri: process.env.FIREBASE_AUTH_URI,
-  token_uri: process.env.FIREBASE_TOKEN_URI,
-  auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
-  client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
-  universal_domain: process.env.FIREBASE_UNIVERSAL_DOMAIN
-  }),
-});
-
-
-
 
 // const signup = async (req, res) => {
 //   const { username, email, password, accountType } = req.body;
@@ -143,50 +123,13 @@ const verifyEmail = async (req, res) => {
   }
 };
 
+
+
+
+
 const login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
-    // Handle Google login if accessToken is present
-    if (req.body.accessToken) {
-      const { accessToken } = req.body; // Access token is declared here
-    
-      const decodedToken = await admin.auth().verifyIdToken(accessToken);
-      const userEmail = decodedToken.email;
-
-      let user = await User.findOne({ email: userEmail });
-
-      if (!user) {
-        user = new User({
-          username: decodedToken.name || "GoogleUser",
-          email: userEmail,
-          accountType: "buyer", // Default to buyer for Google logins
-          verify: true, // Automatically verified for Google users
-        });
-        await user.save();
-      }
-
-      const data = {
-        id: user._id,
-        accountType: user.accountType,
-        author: user.username,
-      };
-      const newaccessToken = generateAccessToken(data);
-      const refreshToken = generateRefreshToken(data);
-
-      return res.status(200).json({
-        success: true,
-        message: "Login successful",
-        newaccessToken,
-        refreshToken,
-        role: user.accountType,
-        author: user.username,
-        verify: true,
-        verifyToken: null,
-      });
-    }
-
-    // Traditional Email/Password login
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ success: false, message: "Please signup" });
@@ -195,22 +138,24 @@ const login = async (req, res) => {
       return res.status(400).json({ success: false, message: "Please verify your email" });
     }
     const comparePassword = await bcrypt.compare(password, user.password);
-    if (!comparePassword) {
-      return res.status(400).json({ success: false, message: "Invalid credentials" });
-    }
+    if (!comparePassword)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentails" });
 
     const data = {
       id: user._id,
       accountType: user.accountType,
       author: user.username,
     };
-    const newaccessToken = generateAccessToken(data);
+
+    const accessToken = generateAccessToken(data);
     const refreshToken = generateRefreshToken(data);
 
     return res.status(200).json({
       success: true,
       message: "Login successful",
-      newaccessToken,
+      accessToken,
       refreshToken,
       role: user.accountType,
       author: user.username,
@@ -219,128 +164,6 @@ const login = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
-
-
-
-
-// const login = async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     let user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(400).json({ success: false, message: "Please signup" });
-//     }
-//     if (!user.verify) {
-//       return res.status(400).json({ success: false, message: "Please verify your email" });
-//     }
-//     const comparePassword = await bcrypt.compare(password, user.password);
-//     if (!comparePassword)
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "Invalid credentails" });
-
-//     const data = {
-//       id: user._id,
-//       accountType: user.accountType,
-//       author: user.username,
-//     };
-
-//     const accessToken = generateAccessToken(data);
-//     const refreshToken = generateRefreshToken(data);
-
-//     return res.status(200).json({
-//       success: true,
-//       message: "Login successful",
-//       accessToken,
-//       refreshToken,
-//       role: user.accountType,
-//       author: user.username,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({ success: false, message: error.message });
-//   }
-// };
-
-
-
-// const login = async (req, res) => {
-//   const { email, password, accessToken} = req.body;
- 
-
-//   try {
-//     if (accessToken){
-//       // Verify Google token
-//       console.log("Received accessToken:", accessToken);
-//       const decodedToken = await admin.auth().verifyIdToken(accessToken);
-//       const userEmail = decodedToken.email;
-
-//       let user = await User.findOne({ email: userEmail });
-     
-//       if (!user) {
-//         // Register new user for Google Login
-//         user = new User({
-//           username: decodedToken.name || "GoogleUser",
-//           email: userEmail,
-//           accountType: "buyer", // Default to buyer for Google logins
-//           verify: true, // Automatically verified for Google users
-//         });
-//         await user.save();
-//       }
-
-//       // Generate JWT tokens
-//       const data = {
-//         id: user._id,
-//         accountType: user.accountType,
-//         author: user.username,
-//       };
-//       const accessToken = generateAccessToken(data);
-//       const refreshToken = generateRefreshToken(data);
-
-//       return res.status(200).json({
-//         success: true,
-//         message: "Login successful",
-//         accessToken,
-//         refreshToken,
-//         role: user.accountType,
-//         author: user.username,
-//         verify: true,
-//         verifyToken:null,
-//       });
-//     }
-
-//     // Fallback for traditional Email/Password login
-//     let user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(400).json({ success: false, message: "Please signup" });
-//     }
-//     if (!user.verify) {
-//       return res.status(400).json({ success: false, message: "Please verify your email" });
-//     }
-//     const comparePassword = await bcrypt.compare(password, user.password);
-//     if (!comparePassword) {
-//       return res.status(400).json({ success: false, message: "Invalid credentials" });
-//     }
-
-//     const data = {
-//       id: user._id,
-//       accountType: user.accountType,
-//       author: user.username,
-//     };
-//     const accessToken = generateAccessToken(data);
-//     const refreshToken = generateRefreshToken(data);
-
-//     return res.status(200).json({
-//       success: true,
-//       message: "Login successful",
-//       accessToken,
-//       refreshToken,
-//       role: user.accountType,
-//       author: user.username,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({ success: false, message: error.message });
-//   }
-// };
 
 const refresh = async (req, res) => {
   const authHeader = req.headers["authorization"];

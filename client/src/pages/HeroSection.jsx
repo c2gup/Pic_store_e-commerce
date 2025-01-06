@@ -5,9 +5,16 @@ import hero_icon from "../../public/assets/Rocket.png";
 import HeroSectionPart2 from './HeroSectionPart2';
 import HeroImg from "../../public/assets/hero.png"
 import user5 from "../../public/assets/img5.png"
+// import BrowseMarketPlace from './BrowseMarketPlace';
+// import ProfileCard from './ProfileCard';
+// import CreatorDetails from './CreatorDetails';
+
 
 export default function HeroSection() {
     return (<>
+    {/* <CreatorDetails/> */}
+    {/* <TopCreatersPart2></TopCreatersPart2> */}
+    {/* <ProfileCard/> */}
     <div className="flex justify-between items-center h-[600px] mx-auto w-[85%] ">
             {/* Left Section */}
             <div className="HeroSection_left w-1/2">
@@ -21,7 +28,7 @@ export default function HeroSection() {
                 <div className="mt-6">
                     <a
                         className="group inline-flex items-center rounded-[20px] bg-[#A259FF] w-[220px] p-[2px] border focus:outline-none"
-                        href="#"
+                        href="/BrowseMarketPlace"
                     >
                         <img src={hero_icon} alt="Arrow Icon" className="ml-5" />
                         <span className="block text-white rounded-full px-3 py-3 text-sm font-medium group-hover:bg-transparent">
@@ -69,7 +76,10 @@ export default function HeroSection() {
             </div>
 
         </div>
+    {/* <BrowseMarketPlace/> */}
+
             <HeroSectionPart2></HeroSectionPart2>
+            
 
     </>
         

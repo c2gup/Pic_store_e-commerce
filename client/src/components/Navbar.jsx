@@ -39,7 +39,7 @@ const Navbar = () => {
       className={`flex flex-col sm:flex-row justify-between items-start sm:items-center px-5 py-5 ${
         pathname === "/seller/profile" || pathname === "/buyer/profile"
           ? "hidden"
-          : "fixed"
+          : "relative"
       } top-0 left-0 right-0 text-[#ffff] shadow-md gap-1 sm:gap-0 z-30 bg-[#2B2B2B]`}
     >
      
@@ -56,7 +56,7 @@ const Navbar = () => {
         <Link to="/" className="hover:text-black cursor-pointer sm:p-2">
           About
         </Link>
-        <Link to="/" className="hover:text-black cursor-pointer sm:p-2">
+        <Link to="/ConnectWallet" className="hover:text-black cursor-pointer sm:p-2">
           Contact
         </Link>
         {!isAuthenticated ? (

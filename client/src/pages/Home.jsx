@@ -20,8 +20,12 @@ export default function Home() {
   }
   return (
     <>
-      <div className="mt-40">
-        <form class="flex items-center   max-w-lg mx-auto">
+      {/* <div className="mt-40"> */}
+      <div className="">
+
+        {/* <form class="flex items-center   max-w-lg mx-auto"> */}
+        <form class="flex items-center   mx-auto">
+
           <label for="voice-search" class="sr-only">
             Search
           </label>
