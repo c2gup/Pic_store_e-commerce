@@ -214,42 +214,20 @@ export default function SignInThree() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // async function handleGoogleSignIn() {
-  //   try {
-  //     const userdata = await googleAuth();
-  //     console.log(userdata);
-  //     const idToken = userdata.getIdToken();
-  //     console.log(idToken);
-
-  //     const res = await axios.post(
-  //       `${import.meta.env.VITE_API_URL}/api/login`,
-  //         {
-  //         accessToken: idToken,
-  //         }
-  //     );
-
-  //     if (res.data.success) {
-  //       toast.success(res.data.message);
-  //       dispatch(login(res.data));
-  //       navigate(`/${res.data.role}/profile`);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response?.data?.message || "Google login failed.");
-  //     console.error(error);
-  //   }
-  // }
-
-
   async function handleGoogleSignIn() {
     try {
-      let userdata = await googleAuth();
-      const idToken = await userdata.getIdToken();
-  
+      const userdata = await googleAuth();
+      console.log(userdata);
+      const idToken = userdata.getIdToken();
+      console.log(idToken);
+
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/login`,
-        { accessToken: idToken }
+          {
+          accessToken: idToken,
+          }
       );
-  
+
       if (res.data.success) {
         toast.success(res.data.message);
         dispatch(login(res.data));
@@ -257,8 +235,30 @@ export default function SignInThree() {
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Google login failed.");
+      console.error(error);
     }
   }
+
+
+  // async function handleGoogleSignIn() {
+  //   try {
+  //     let userdata = await googleAuth();
+  //     const idToken = await userdata.getIdToken();
+  
+  //     const res = await axios.post(
+  //       `${import.meta.env.VITE_API_URL}/api/login`,
+  //       { accessToken: idToken }
+  //     );
+  
+  //     if (res.data.success) {
+  //       toast.success(res.data.message);
+  //       dispatch(login(res.data));
+  //       navigate(`/${res.data.role}/profile`);
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || "Google login failed.");
+  //   }
+  // }
   
 
   const handleSubmit = async (e) => {
