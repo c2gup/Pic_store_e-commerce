@@ -1,31 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import TrendData from "../../data/Trending";  // Import JSON data
+import React, { useState, useEffect } from "react";
+import TrendData from "../../data/Trending"; // Import JSON data
 
-export default function NFTs() {
+export default function NFTs({ count }) {
   const [cards, setCards] = useState([]);
+//   const handleClick = (id) => {
+//     // Navigate to the detailed page of the clicked item using the id
+//     navigate(`/creator-details/${id}`);
+// };
+
 
   useEffect(() => {
-    // Set the card data when the component mounts
-    setCards(TrendData);
-  }, []);
+    // Load cards based on count or show all cards if count is not provided
+    const displayCards = count ? TrendData.slice(0, count) : TrendData;
+    setCards(displayCards);
+  }, [count]);
 
   return (
-    <div className=" rounded-lg flex space-x-10 w-[100%] overflow-hidden shadow-lg text-white">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
       {cards.map((card, index) => (
-        <div key={index}>
+        <div key={index} className="card bg-[#2f2f2f] h-[400px] rounded-lg shadow-lg text-white">
           {/* Image Section */}
           <div className="relative">
             <img
               src={card.image}
               alt={card.title}
-              className="w-full h-64 object-cover"
+              className="w-full h-[250px] object-cover rounded-t-lg"
             />
           </div>
 
           {/* Content Section */}
-          <div className="p-4 bg-[#3c3c3b]">
+          <div className="p-4">
             <h2 className="text-xl font-bold">{card.title}</h2>
-            <div className="flex items-center mt-2">
+            <div className="Stuck flex items-center mt-2" 
+            // onClick={() => handleClick(item.id)} 
+            >
               <img
                 src={card.avatar}
                 alt="Avatar"

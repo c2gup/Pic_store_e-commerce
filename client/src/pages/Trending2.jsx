@@ -1,8 +1,8 @@
 import React from 'react';
-import card1 from "/assets/Image1.png";
-import see_icon from "/assets/Eye.png"
-import trend_bg from "/assets/trending.jpg"
-import trend_bg2 from "/assets/trending_bg.png"
+import card1 from "../../public/assets/Image1.png";
+import see_icon from "../../public/assets/Eye.png"
+// import trend_bg from "../../public/assets/trending.jpg"
+import trend_bg2 from "../../public/assets/trending_bg.png"
 
 
 export default function Trending2() {
@@ -10,7 +10,7 @@ export default function Trending2() {
     // <div className="min-h-screen text-white h-[500px] flex mt-20  w-full  bg-[tr] bg-cover bg-center">
     <div
       className="min-h-screen text-white h-[500px] flex mt-20 w-full bg-cover bg-center"
-      style={{ backgroundImage: `url(${trend_bg})` }} // Tailwind CSS background
+      style={{ backgroundImage: `url(${trend_bg2})` }} // Tailwind CSS background
     >
       <div className=" inset-0 bg-gradient-to-r from-[#914ee8] via-transparent to-[#A259FF] opacity-20">
         {/* Content goes here */}

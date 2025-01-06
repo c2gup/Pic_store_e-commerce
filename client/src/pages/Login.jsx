@@ -6,70 +6,16 @@ import axios from "axios";
 import { useState } from "react";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch } from "react-redux";
-import contact_image from "/assets/ImagePlace.png";
-import password_icon from "/assets/LockKey.png";
-import email_icon from "/assets/EnvelopeSimple.png";
-import  googleAuth  from "../../utils/firebase";
+import contact_image from "../../public/assets/ImagePlace.png";
+import password_icon from "../../public/assets/LockKey.png";
+import email_icon from "../../public/assets/EnvelopeSimple.png";
 
 export default function SignInThree() {
- 
-  
-
-  const dispatch = useDispatch();
+  const dipatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  // async function handleGoogleSignIn() {
-  //   try {
-  //     const userdata = await googleAuth();
-  //     console.log(userdata);
-  //     const idToken = userdata.getIdToken();
-  //     console.log(idToken);
-
-  //     const res = await axios.post(
-  //       `${import.meta.env.VITE_API_URL}/api/login`,
-  //         {
-  //         accessToken: idToken,
-  //         }
-  //     );
-
-  //     if (res.data.success) {
-  //       toast.success(res.data.message);
-  //       dispatch(login(res.data));
-  //       navigate(`/${res.data.role}/profile`);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response?.data?.message || "Google login failed.");
-  //     console.error(error);
-  //   }
-  // }
-
-
-  async function handleGoogleSignIn() {
-    try {
-      let userdata = await googleAuth();
-      const idToken = await userdata.getIdToken();
-  
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/login`,
-        { accessToken: idToken },
-         {
-        withCredentials: true, // Place withCredentials inside the config object
-      }
-      );
-  
-      if (res.data.success) {
-        toast.success(res.data.message);
-        dispatch(login(res.data));
-        navigate(`/${res.data.role}/profile`);
-      }
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Google login failed.");
-    }
-  }
-  
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,22 +23,29 @@ export default function SignInThree() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/login`,
-        { email, password },
-         {
-        withCredentials: true, // Place withCredentials inside the config object
-      }
+        {
+          // Change 'name' to 'username' to match the backend
+          email,
+          password,
+        }
       );
 
-      if (res.data.success) {
-        toast.success(res.data.message);
-        dispatch(login(res.data));
-        navigate(`/${res.data.role}/profile`);
+      const data = await res.data;
+
+      if (data.success) {
         setEmail("");
+
         setPassword("");
+
+        const data = await res.data;
+        toast.success(data.message);
+        // dipatch karna hai login -> jo bhi data aa raha hai sab push karna hai state me
+        dipatch(login(data));
+        navigate(`/${data.role}/profile`);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong.");
-      console.error(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+      console.error(error); // Log the actual error for debugging
     }
   };
   return (
@@ -102,7 +55,7 @@ export default function SignInThree() {
           <img src={contact_image} alt="" className=" h-[700px] w-[850px]  " />
         </div>
 
-        <div className=" mt-30 m-auto  ">
+        <div className=" m-auto  mt-30 rounded-3xl items-center  py-10   sm:w-[30vw] ">
           <div className="mb-2 flex justify-center">
             <svg
               width="50"
@@ -120,7 +73,7 @@ export default function SignInThree() {
           <h2 className="text-center text-2xl font-bold leading-tight text-white">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-100 ">
+          <p className="mt-2 text-center text-1xl text-gray-100 ">
             Don&apos;t have an account?{" "}
             <Link
               to="/signup"
@@ -200,7 +153,6 @@ export default function SignInThree() {
           <div className="mt-3 space-y-3">
             <button
               type="button"
-              onClick={handleGoogleSignIn}
               className="relative inline-flex w-full items-center justify-center rounded-full border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >
               <span className="mr-2 inline-block">
