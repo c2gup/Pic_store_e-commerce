@@ -5,11 +5,12 @@ import { footerData } from "../../data/FooterData";
 function Footer() {
   return (
     <>
-      <div className="bg-[#3B3B3B]">
+      <div className="bg-[#3B3B3B]   ">
         <div className="   p-2 flex items-center justify-center">
-          <div className="  flex w-[80%] mt-5  gap-28 text-blue">
+          
+          <div className=" p-3 sm:p-0 flex flex-col sm:flex-row  sm:w-[80%] sm:mt-5 gap-2  sm:gap-28 text-blue">
             <div>
-              <div>
+              <div className=" " >
                 <div className="flex  text-purple-500 sm:justify-start">
                   <div className="w-10">
                     <svg
@@ -30,16 +31,16 @@ function Footer() {
                   </p>
                 </div>
 
-                <div className="flex  flex-col ">
-                  <p className="mt-5 max-w-md text-[#CCCCCC] text-center w-[80%] leading-relaxed  sm:max-w-xs sm:text-left">
+                <div className="flex gap-1  flex-col ">
+                  <p className="sm:mt-5 max-w-md text-[#CCCCCC]  w-[80%] leading-relaxed  sm:max-w-xs sm:text-left">
                     Lorem ipsum dolor, sit amet consectetur
                   </p>
-                  <p className="mt-3 max-w-md text-[#CCCCCC] text-center w-[80%] leading-relaxed  sm:max-w-xs sm:text-left">
+                  <p className="max-w-md text-[#CCCCCC]  w-[80%] leading-relaxed  sm:max-w-xs sm:text-left">
                     Lorem ipsum dolor,
                   </p>
                 </div>
 
-                <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
+                <ul className="sm:mt-8 mt-3 flex gap-3 ssm:gap-6 sm:justify-start md:gap-8">
                   <li>
                     <a
                       href="#"
@@ -154,7 +155,7 @@ function Footer() {
               </div>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="  text-left">
               <p className="text-2xl  font-spaceMono  font-bold text-[#ffff]">
                 Explore
               </p>
@@ -171,21 +172,21 @@ function Footer() {
             </div>
 
             <div className="  ">
-              <div className="flex flex-col md:flex-row items-center justify-between">
-                <div className="  ">
+              <div className="flex sm:flex-col md:flex-row items-center justify-between">
+                <div className=" sm:flex sm:flex-col  ">
                   <h2 className="text-2xl font-spaceMono text-[#ffff]   font-bold ">
                     Join Our Weekly Digest
                   </h2>
                   <p className="text-sm mb-6 mt-5 font-sans text-[#CCCCCC] w-[80%]">
                     Get Exclusive Promotions & Updates Straight To Your Inbox.
                   </p>
-                  <div className="flex items-center">
+                  <div className=" sm:flex sm:flex-row flex w-[80%] flex-col gap-1 sm:gap-0 items-center">
                     <input
                       type="email"
                       placeholder="Enter your email here"
-                      className="rounded-l-md px-4 py-2 border-t border-l border-b border-gray-700 focus:outline-none focus:ring-0 focus:ring-purple-500"
+                      className="sm:rounded-l-md  sm:rounded-r-none sm:px-4 w-[100%] sm:w-[100%] p-3 rounded-full  sm:py-2 border-t border-l border-b border-gray-700 focus:outline-none focus:ring-0 focus:ring-purple-500"
                     />
-                    <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-r-md border-t border-r border-b border-gray-700">
+                    <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold sm:py-2 sm:px-4 sm:rounded-r-md sm:rounded-l-none rounded-full w-[60%] p-3 border-t border-r border-b border-gray-700">
                       Subscribe
                     </button>
                   </div>
@@ -195,13 +196,12 @@ function Footer() {
           </div>
         </div>
 
-        <div className="w-[90%]  mt-2 m-auto bg-[#3B3B3B] ">
+        <div className="w-[90%]   mt-2 m-auto bg-[#3B3B3B] ">
           <hr className="border-t-1 border-[#ffffff]" />
         </div>
 
-
-        <div className="mt-3 px-20 pb-8  text-[#cccccc] w-[90%]" >
-<p className="w-[90%]"> @ PIS Market. Use this template freely</p>
+        <div className="mt-3 sm:px-20 px-4 pb-8  text-[#cccccc] sm:w-[90%]">
+          <p className="w-[90%]"> @ PIS Market. Use this template freely</p>
         </div>
       </div>
     </>

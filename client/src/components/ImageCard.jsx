@@ -1,22 +1,22 @@
 const ImageCard = ({ id, img, title, price, author, icon1, icon2,tags }) => {
       return (
-        <div className="rounded-2xl bg-[#3B3B3B] shadow-lg p-2">
-          <div className="w-full h-[400px] p-5  ">
+        <div className="rounded-2xl bg-[#3B3B3B] shadow-lg  ">
+          <div className="w-full h-[400px]  ">
             <img
               src={img}
               alt={title}
-              className="w-full h-full rounded-xl hover:scale-105 transition-all ease-linear duration-300 transform cursor-pointer"
+              className="w-full h-full object-cover rounded-t-lg  transition-all ease-linear duration-300 transform cursor-pointer"
             />
           </div>
-          <p className="font-semibold text-white bg-black w-fit px-5 py-1 rounded-full text-sm mt-3">
+          <p className=" text-white bg-[#2B2B2B] w-fit px-5 p-1  rounded-full text-sm mt-3">
             {"@" + author.charAt(0).toUpperCase() + author.slice(1)}
           </p>
-          <div className="flex justify-between items-center mt-2">
+          <div className="flex justify-between p-3 items-center mt-2">
             <div>
               <h3 className="text-lg text-[#ffff] font-semibold">{title}</h3>
-              <p className="text-[#ffff]">Price : ${price}</p>
+              <p className="text-gray-400">Price : ${price}</p>
             </div>
-            <div className="flex gap-5 justify-center items-center">
+            <div className="flex gap-5 justify-center  items-center">
               {icon1}
               {icon2}
             </div>
@@ -24,7 +24,7 @@ const ImageCard = ({ id, img, title, price, author, icon1, icon2,tags }) => {
 
 
                 {/* Tags Section */}
-      {tags && tags.length > 0 && (
+      {/* {tags && tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-3">
           {tags.map((tag, index) => (
             <span
@@ -35,7 +35,7 @@ const ImageCard = ({ id, img, title, price, author, icon1, icon2,tags }) => {
             </span>
           ))}
         </div>
-      )}
+      )} */}
           </div>
         </div>
       );
