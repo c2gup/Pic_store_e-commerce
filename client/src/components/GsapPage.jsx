@@ -16,6 +16,7 @@ import CreatorDetails from '../pages/CreatorDetails';
  import { useEffect, useRef } from "react";
 import Homesection from '../pages/Homesection';
 import ProtectedRoute from './ProtectedRoute';
+import PhotoGalllary from './PhotoGalllary';
 
 import VerifyEmail from './VerifyEmail';
 
@@ -53,6 +54,9 @@ export default function GsapPage() {
           }/>
           <Route path="/BrowseMarketPlace" element={
             <ProtectedRoute children={<BrowseMarketPlace/>} requiresAuth={false} />
+          }/>
+          <Route path="/Photos" element={
+            <ProtectedRoute children={<PhotoGalllary/>} requiresAuth={false} />
           }/>
           {/* <Route path="/CreatorDetails" element={
             <ProtectedRoute children={<CreatorDetails/>} requiresAuth={false} />

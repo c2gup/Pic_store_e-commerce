@@ -28,7 +28,7 @@ export default function HeroSection() {
                 <div className="mt-6">
                     <a
                         className="group inline-flex items-center rounded-[20px] bg-[#A259FF] w-[220px] p-[2px] border focus:outline-none"
-                        href="/BrowseMarketPlace"
+                        href="/Photos"
                     >
                         <img src={hero_icon} alt="Arrow Icon" className="ml-5" />
                         <span className="block text-white rounded-full px-3 py-3 text-sm font-medium group-hover:bg-transparent">
