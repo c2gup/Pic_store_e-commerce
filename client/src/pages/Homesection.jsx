@@ -14,8 +14,8 @@ export default  function Homesection() {
       <HeroSection/>
      
       {/* <PhotoGalllary/> */}
-      {/* <TopCreaters/>
-      <Trending /> */}
+      <TopCreaters/>
+      // <Trending /> 
       <CtaPage/>
      
     </div>
