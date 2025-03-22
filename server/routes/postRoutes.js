@@ -10,12 +10,14 @@ const {
   removeFromFavourites,
   getFavourites,
   getPostByDateRange,
+  editPost,
 } = require("../controllers/postController");
 
 router.post("/post/create", verifyToken, createPost);
 router.get("/post/getAll", getAllPosts);
 router.get("/post/myPosts", verifyToken, getMyPosts);
 router.delete("/post/delete/:id", verifyToken, deletePost);
+router.put("/post/edit/:id", verifyToken, editPost);
 router.get("/post/search", searchPosts);
 router.put("/post/addToFavourites/:postId", verifyToken, addToFavourites);
 router.put(

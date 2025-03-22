@@ -150,6 +150,8 @@ const login = async (req, res) => {
     // Handle Google login if accessToken is present
     if (req.body.accessToken) {
       const { accessToken } = req.body; // Access token is declared here
+
+     
     
       const decodedToken = await admin.auth().verifyIdToken(accessToken);
       const userEmail = decodedToken.email;
@@ -173,6 +175,7 @@ const login = async (req, res) => {
       };
       const newaccessToken = generateAccessToken(data);
       const refreshToken = generateRefreshToken(data);
+      
 
       return res.status(200).json({
         success: true,

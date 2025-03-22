@@ -268,6 +268,7 @@ export default function SignInThree() {
         dispatch(login(res.data));
         navigate(`/${res.data.role}/profile`);
       }
+     
     } catch (error) {
       toast.error(error.response?.data?.message || "Google login failed.");
     }

@@ -17,7 +17,7 @@ const DashboardHeader = () => {
 
     <>
   
-      <div className="my-5 mx-8">
+      <div className="my-5 mx-8  text-white ">
         <h1 className="text-3xl font-bold">
           Hello {author.charAt(0).toUpperCase() + author.slice(1)},
         </h1>
