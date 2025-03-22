@@ -173,6 +173,41 @@ const deletePost = async (req, res) => {
   }
 };
 
+
+const editPost = async (req, res) => {
+  const { id } = req.params;
+ 
+  
+  const { title, price, image, publicId, tags } = req.body;
+
+  try {
+    const post = await Post.findById(id);
+   
+    if (!post) {
+      return res.status(404).json({ success: false, message: "Post not found" });
+    }
+
+   
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      { title, price, image, publicId, tags },
+      { new: true, runValidators: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Post updated successfully",
+      data: updatedPost,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+
+
 const searchPosts = async (req, res) => {
   const { search } = req.query;
   try {
@@ -375,5 +410,6 @@ module.exports = {
   addToFavourites,
   removeFromFavourites,
   getFavourites,
-  getPostByDateRange
+  getPostByDateRange,
+  editPost
 };

@@ -113,9 +113,10 @@ const Order = require("../models/Order");
 const Post = require("../models/Post");
 const crypto = require("crypto");
 
+
 const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_SECRET,
+  key_id:process.env.RAZORPAY_KEY_ID,
+  key_secret:process.env.RAZORPAY_SECRET,
 });
 
 // Generate Razorpay order

@@ -11,12 +11,12 @@ const authSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      state.accessToken = action.payload.accessToken;
+      state.accessToken = action.payload.newaccessToken;
       state.refreshToken = action.payload.refreshToken;
       state.role = action.payload.role;
       state.author = action.payload.author;
       state.isAuthenticated = true;
-      localStorage.setItem("accessToken", action.payload.accessToken);
+      localStorage.setItem("accessToken", action.payload.newaccessToken);
       localStorage.setItem("refreshToken", action.payload.refreshToken);
       localStorage.setItem("role", action.payload.role);
       localStorage.setItem("author", action.payload.author);

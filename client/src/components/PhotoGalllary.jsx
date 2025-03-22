@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { IoIosHeart } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
 import ImageCard from "./ImageCard";
@@ -26,36 +26,7 @@ function PhotoGalllary() {
       { label: "Collection", count: 5 },
   ];
 
-  // const getAllPosts = async () => {
-  //   if (loading) return;
-  //   setLoading(true);
-  //   const params = { page, limit: 6 };
 
-  //   try {
-  //     const response = await axios.get(
-  //       `${import.meta.env.VITE_API_URL}/api/post/getAll`,
-  //       {
-  //         params,
-  //       }
-  //     );
-  //     if (response.status !== 200) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     const { data } = response.data;
-
-  //     if (!data || data.length === 0) {
-  //       console.warn("No more posts available.");
-  //       return;
-  //     }
-     
-  //     dispatch(setAllPosts(data));
-  //   } catch (error) {
-  //     console.error("Error fetching posts:", error.message || error);
-  //   }
-
-  //   setLoading(false);
-  // };
 
 
   const getAllPosts = async () => {
